@@ -1,24 +1,13 @@
 <?php
 
-    $db_server = "localhost";
-    $db_user = "root";
-    $db_pass = "";
-    $db_name = "dziennikdb";
-    $conn = "";
+$sname= "localhost";
+$unmae= "root";
+$password = "";
 
-    $conn = mysqli_connect(
-    $db_server, 
-    $db_user , 
-    $db_pass , 
-    $db_name
-    );
+$db_name = "dziennikdb";
 
-    if($conn)
-    {
-        echo"Polaczony";
-    }
-    else
-    {
-        echo"brak polaczenia";
-    }
-?>
+$conn = mysqli_connect($sname, $unmae, $password, $db_name);
+
+if (!$conn) {
+	echo "Connection failed!";
+}
