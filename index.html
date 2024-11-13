@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona z Guzikami</title>
+    <style>
+        /* Stylizacja strony */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5dc; /* Beżowy kolor tła */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Kontener na przyciski */
+        .button-container {
+            text-align: center;
+        }
+
+        /* Styl przycisków */
+        .button {
+            display: inline-block;
+            padding: 20px 40px;
+            margin: 10px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #70562f; /* Zielony kolor przycisków */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        /* Efekt po najechaniu myszką */
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <!-- Pierwszy przycisk -->
+        <a href="Edytor.php" class="button">Edytor planu lekcji</a>
+        <!-- Drugi przycisk -->
+        <a href="BazaDanych.php" class="button">Baza Danych</a>
+    </div>
+</body>
+</html>
