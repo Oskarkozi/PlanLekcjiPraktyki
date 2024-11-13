@@ -4,50 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona z Guzikami</title>
+    <script src="script.js"></script>
     <style>
         /* Stylizacja strony */
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f5f5dc; /* Beżowy kolor tła */
+            background: radial-gradient(circle, #FF4500, #8B0000, #2F4F4F);
             font-family: Arial, sans-serif;
+        }
+
+        /* Stylizacja logo */
+        .logo {
+            width: 500px;
+            height: auto;
+            margin-bottom: 40px;
         }
 
         /* Kontener na przyciski */
         .button-container {
-            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 500px;
         }
 
         /* Styl przycisków */
         .button {
-            display: inline-block;
-            padding: 20px 40px;
-            margin: 10px;
-            font-size: 1.5em;
+            flex: 1;
+            padding: 20px;
+            margin: 0 10px;
+            font-size: 1.2em;
             color: white;
-            background-color: #70562f; /* Zielony kolor przycisków */
+            background-color: #70562f;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         /* Efekt po najechaniu myszką */
         .button:hover {
             background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Stylizacja focus */
+        .button:focus {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+
+        /* Stylizacja responsywna dla urządzeń mobilnych */
+        @media (max-width: 600px) {
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button {
+                width: 80%;
+                margin: 10px 0;
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="button-container">
-        <!-- Pierwszy przycisk -->
-        <a href="Edytor.php" class="button">Edytor planu lekcji</a>
-        <!-- Drugi przycisk -->
-        <a href="BazaDanych.php" class="button">Baza Danych</a>
-    </div>
-</body>
+    <body>
+    <!-- Logo umieszczone na środku -->
+    <img src="logo.png" alt="Logo" class="logo">
+    <!-- Kontener na przyciski -->
+        <div class="button-container">
+            <!-- Pierwszy przycisk -->
+            <a href="przedlogin.php" class="button">Edytor planu lekcji</a>
+            <!-- Drugi przycisk -->
+            <a href="BazaDanych.php" class="button">Wyświetlanie planu lekcji</a>
+        </div>
+    </body>
 </html>
