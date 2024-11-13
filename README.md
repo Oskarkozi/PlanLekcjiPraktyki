@@ -1,4 +1,4 @@
-# PlanLekcjiPraktyki
+# Eruptor - dziennik
 Instrukcja:
 1. Sklonuj repozytorium
 Najpierw sklonuj projekt:
