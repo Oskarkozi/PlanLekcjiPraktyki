@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(180deg, #800000, #ffcc00); /* Gradient z ciemnej czerwieni do żółci */
+            background: linear-gradient(180deg, #d16200,#a81c00, #313131); /* Gradient z ciemnej czerwieni do żółci */
             color: #fff;
             min-height: 100vh; /* Upewnia się, że gradient pokrywa całe okno przeglądarki */
         }
