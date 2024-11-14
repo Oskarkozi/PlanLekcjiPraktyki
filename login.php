@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-include "BazaDanych.php";
+include "database.php";
 
 if (isset($_POST['uname']) && isset($_POST['password'])) {
 
@@ -21,7 +21,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
         header("Location: index.php?error=Password is required");
 	    exit();
 	}else{
-		$sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass'";
+		$sql = "SELECT * FROM uzytkownicy WHERE user_name='$uname' AND password='$pass'";
 
 		$result = mysqli_query($conn, $sql);
 
