@@ -1,5 +1,6 @@
 # Eruptor - dziennik
 Instrukcja:
+0.piotrek napraw
 1. Sklonuj repozytorium
 Najpierw sklonuj projekt:
 git clone https://github.com/nazwa-uzytkownika/nazwa-repozytorium.git
