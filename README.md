@@ -1,16 +1,7 @@
 # Eruptor - dziennik
 Instrukcja:
-1. Sklonuj repozytorium
-Najpierw sklonuj projekt:
-git clone https://github.com/Oskarkozi/PlanLekcjiPraktyki.git
-cd PlanLekcjiPraktyki
-2. Skonfiguruj plik .env
-Jeśli projekt wymaga zmiennych środowiskowych, skopiuj przykładowy plik .env.example do .env:
-cp .env.example .env
-3. Uruchom aplikację
-Uruchom projekt, korzystając z jednej z poniższych komend:
-npm start
-lub
-yarn start
-4. Otwórz w przeglądarce
-Aplikacja powinna być teraz dostępna pod adresem http://localhost:3000 (lub innym, zależnym od konfiguracji).
+1. Zainstaluj XAMPP (jeśli jeszcze go nie masz).
+2. Przenieś folder projekt-przycisk do katalogu htdocs (np. C:\xampp\htdocs\PlanLekcjiPraktyki-main).
+3. Uruchom XAMPP i włącz serwer Apache oraz MySQL.
+4. Przejdź do przeglądarki i wpisz:
+http://localhost/PlanLekcjiPraktyki-main/
