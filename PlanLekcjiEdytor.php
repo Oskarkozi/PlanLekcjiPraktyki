@@ -27,8 +27,22 @@ if (!$classData) {
 }
 $klasaId = $classData['Klasa_id'];
 
+// Jeśli kliknięto przycisk "Usuń", usuń odpowiednią lekcję
+if (isset($_POST['delete'])) {
+    $dayToDelete = (int)$_POST['day'];
+    $lessonToDelete = (int)$_POST['lesson'];
+    $klasaIdToDelete = (int)$_POST['klasa_id'];
+
+    $deleteQuery = "DELETE FROM plan_lekcji WHERE Dzien = $dayToDelete AND Numer_Lekcji = $lessonToDelete AND Klasa_id = $klasaIdToDelete";
+    if (mysqli_query($conn, $deleteQuery)) {
+        echo "<p style='color: green;'>Lekcja została usunięta pomyślnie!</p>";
+    } else {
+        echo "<p style='color: red;'>Błąd podczas usuwania: " . mysqli_error($conn) . "</p>";
+    }
+}
+
 // Jeśli formularz został przesłany, zaktualizuj plan lekcji
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete'])) {
     $success = true;
 
     foreach ($_POST['schedule'] as $day => $lessons) {
@@ -37,17 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $teacherId = !empty($lessonData['teacher']) ? (int)$lessonData['teacher'] : NULL;
 
             if (!empty($roomId) || !empty($teacherId)) {
-                // Sprawdzamy, czy istnieje lekcja w bazie
                 $checkQuery = mysqli_query($conn, "SELECT * FROM plan_lekcji WHERE Dzien = $day AND Numer_Lekcji = $lessonNumber AND Klasa_id = $klasaId");
-                
+
                 if (mysqli_num_rows($checkQuery) > 0) {
-                    // Jeśli lekcja już istnieje, zaktualizuj
+                    // Zaktualizuj istniejący wpis
                     $sql = "UPDATE plan_lekcji
-                            SET Sala_id = $roomId,
-                                Nauczyciel_id = $teacherId
+                            SET Sala_id = $roomId, Nauczyciel_id = $teacherId
                             WHERE Dzien = $day AND Numer_Lekcji = $lessonNumber AND Klasa_id = $klasaId";
                 } else {
-                    // Jeśli lekcja nie istnieje, dodaj nową
+                    // Dodaj nowy wpis
                     $sql = "INSERT INTO plan_lekcji (Dzien, Numer_Lekcji, Sala_id, Nauczyciel_id, Klasa_id)
                             VALUES ($day, $lessonNumber, $roomId, $teacherId, $klasaId)";
                 }
@@ -85,10 +97,8 @@ $sql = "SELECT
         JOIN
             nauczyciele n ON pl.Nauczyciel_id = n.Nauczyciel_id
         WHERE
-            pl.Klasa_id = $klasaId
-            AND pl.Dzien IN (1, 2, 3, 4, 5)
-        ORDER BY
-            pl.Dzien, pl.Numer_Lekcji";
+            pl.Klasa_id = $klasaId AND pl.Dzien IN (1, 2, 3, 4, 5)
+        ORDER BY pl.Dzien, pl.Numer_Lekcji";
 
 $result = mysqli_query($conn, $sql);
 $schedule = [1 => [], 2 => [], 3 => [], 4 => [], 5 => []];
@@ -105,7 +115,6 @@ mysqli_close($conn);
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Lekcji</title>
     <style>
         body { font-family: Arial, sans-serif; }
@@ -115,18 +124,24 @@ mysqli_close($conn);
     </style>
 </head>
 <body>
-    <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> <b>Edytor</b></h1>
+    <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> - Edytor</h1>
+
+    <div class="button-back">
+    <form action="wyburKlasEdytor.php" method="get">
+        <button type="submit">Powrót do wyboru klasy</button>
+    </form>
+</div>
 
     <form method="post">
         <table>
             <tr>
-                <th class="nr">nr</th>
-                <th class="godz">godz</th>
-                <th class="dzien">poniedziałek</th>
-                <th class="dzien">wtorek</th>
-                <th class="dzien">środa</th>
-                <th class="dzien">czwartek</th>
-                <th class="dzien">piątek</th>
+                <th>nr</th>
+                <th>godz</th>
+                <th>poniedziałek</th>
+                <th>wtorek</th>
+                <th>środa</th>
+                <th>czwartek</th>
+                <th>piątek</th>
             </tr>
 
             <?php
@@ -138,22 +153,20 @@ mysqli_close($conn);
 
             for ($i = 1; $i <= 9; $i++) {
                 echo "<tr>";
-                echo "<td class='nr'>$i</td>";
-                echo "<td class='godz'>{$times[$i - 1]}</td>";
+                echo "<td>$i</td>";
+                echo "<td>{$times[$i - 1]}</td>";
 
                 for ($day = 1; $day <= 5; $day++) {
-                    echo "<td class='dzien'>";
-
+                    echo "<td>";
                     $roomId = $teacherId = "";
+
                     if (isset($schedule[$day][$i])) {
                         $lesson = $schedule[$day][$i];
                         $roomId = $lesson['Sala_id'];
                         $teacherId = $lesson['Nauczyciel_id'];
                     }
 
-                    // Opcje sal
-                    echo "<select name='schedule[$day][$i][room]'>";
-                    echo "<option value=''>Sala</option>";
+                    echo "<select name='schedule[$day][$i][room]'><option value=''>Sala</option>";
                     mysqli_data_seek($roomOptions, 0);
                     while ($room = mysqli_fetch_assoc($roomOptions)) {
                         $selected = $room['Sala_id'] == $roomId ? "selected" : "";
@@ -161,9 +174,7 @@ mysqli_close($conn);
                     }
                     echo "</select><br>";
 
-                    // Opcje nauczycieli
-                    echo "<select name='schedule[$day][$i][teacher]'>";
-                    echo "<option value=''>Nauczyciel</option>";
+                    echo "<select name='schedule[$day][$i][teacher]'><option value=''>Nauczyciel</option>";
                     mysqli_data_seek($teacherOptions, 0);
                     while ($teacher = mysqli_fetch_assoc($teacherOptions)) {
                         $selected = $teacher['Nauczyciel_id'] == $teacherId ? "selected" : "";
@@ -171,14 +182,20 @@ mysqli_close($conn);
                     }
                     echo "</select>";
 
+                    if (!empty($roomId) || !empty($teacherId)) {
+                        echo "<form method='post'>
+                            <input type='hidden' name='day' value='$day'>
+                            <input type='hidden' name='lesson' value='$i'>
+                            <input type='hidden' name='klasa_id' value='$klasaId'>
+                            <button type='submit' name='delete' onclick='return confirm(\"Czy na pewno chcesz usunąć tę lekcję?\");'>Usuń</button>
+                        </form>";
+                    }
                     echo "</td>";
                 }
-
                 echo "</tr>";
             }
             ?>
         </table>
         <button type="submit">Zapisz zmiany</button>
     </form>
-</body>
-</html>
+</body
