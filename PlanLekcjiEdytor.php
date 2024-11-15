@@ -21,8 +21,9 @@ if (!$conn) {
 // Pobierz klasę z parametru URL
 $klasa = isset($_GET['klasa']) ? $_GET['klasa'] : '';
 
-// Pobieranie planu lekcji dla wybranej klasy na wszystkie dni tygodnia
+// Pobieranie planu lekcji z bazy danych
 $sql = "SELECT
+            pl.Lekcja_id,
             pl.Numer_Lekcji,
             pl.Dzien,
             s.Numer_Sali,
@@ -30,35 +31,25 @@ $sql = "SELECT
             n.Profesja
         FROM
             plan_lekcji pl
-        JOIN
-            klasy k ON pl.Klasa_id = k.Klasa_id
-        JOIN
-            sale s ON pl.Sala_id = s.Sala_id
-        JOIN
-            nauczyciele n ON pl.Nauczyciel_id = n.Nauczyciel_id
-        WHERE
-            k.Klasa = '$klasa'
-            AND pl.Dzien IN (1, 2, 3, 4, 5)
-        ORDER BY
-            pl.Dzien, pl.Numer_Lekcji";
+        LEFT JOIN sale s ON pl.Sala_id = s.Sala_id
+        LEFT JOIN nauczyciele n ON pl.Nauczyciel_id = n.Nauczyciel_id
+        WHERE pl.Klasa_id = (SELECT Klasa_id FROM klasy WHERE Klasa = '$klasa')
+        ORDER BY pl.Dzien, pl.Numer_Lekcji";
 
 $result = mysqli_query($conn, $sql);
 
-// Inicjalizacja tablicy na plan lekcji
-$schedule = [
-    1 => [], // poniedziałek
-    2 => [], // wtorek
-    3 => [], // środa
-    4 => [], // czwartek
-    5 => [], // piątek
-];
-
-// Przechowywanie wyników w tablicy asocjacyjnej wg dnia i numeru lekcji
+$schedule = [];
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $schedule[$row['Dzien']][$row['Numer_Lekcji']] = $row;
     }
 }
+
+// Pobranie listy sal, nauczycieli i profesji
+$sale = mysqli_query($conn, "SELECT Sala_id, Numer_Sali FROM sale");
+$nauczyciele = mysqli_query($conn, "SELECT Nauczyciel_id, CONCAT(Imie, ' ', Nazwisko) AS Nazwa FROM nauczyciele");
+$profesje = mysqli_query($conn, "SELECT DISTINCT Profesja FROM nauczyciele");
+
 mysqli_close($conn);
 ?>
 
@@ -66,46 +57,87 @@ mysqli_close($conn);
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Lekcji</title>
+    <title>Plan Lekcji Edytor</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
 </head>
 <body>
-    <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> <b>Edytor</b></h1>
-
+    <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> - Edytor</h1>
     <table>
         <tr>
-            <th class="nr">nr</th>
-            <th class="godz">godz</th>
-            <th class="dzien">poniedziałek</th>
-            <th class="dzien">wtorek</th>
-            <th class="dzien">środa</th>
-            <th class="dzien">czwartek</th>
-            <th class="dzien">piątek</th>
+            <th>Nr</th>
+            <th>Godziny</th>
+            <th>Poniedziałek</th>
+            <th>Wtorek</th>
+            <th>Środa</th>
+            <th>Czwartek</th>
+            <th>Piątek</th>
         </tr>
 
         <?php
-        // Definicja godzin lekcyjnych
-        $times = [
-            "08:00 - 08:45", "09:00 - 09:45", "10:00 - 10:45",
-            "11:00 - 11:45", "12:00 - 12:45", "13:00 - 13:45",
-            "14:00 - 14:45", "15:00 - 15:45", "16:00 - 16:45"
-        ];
+        $times = ["08:00 - 08:45", "09:00 - 09:45", "10:00 - 10:45", "11:00 - 11:45", "12:00 - 12:45", "13:00 - 13:45", "14:00 - 14:45", "15:00 - 15:45", "16:00 - 16:45"];
 
         for ($i = 1; $i <= 9; $i++) {
             echo "<tr>";
-            echo "<td class='nr'>$i</td>";
-            echo "<td class='godz'>{$times[$i - 1]}</td>";
+            echo "<td>$i</td>";
+            echo "<td>{$times[$i - 1]}</td>";
 
-            // Iteracja przez dni tygodnia (1 do 5)
             for ($day = 1; $day <= 5; $day++) {
+                echo "<td>";
+
+                // Sprawdzanie, czy komórka ma przypisaną lekcję
                 if (isset($schedule[$day][$i])) {
                     $lesson = $schedule[$day][$i];
-                    echo "<td class='dzien'>{$lesson['Numer_Sali']}<br>{$lesson['Nauczyciel']}<br>{$lesson['Profesja']}</td>";
+                    echo "{$lesson['Numer_Sali']}<br>{$lesson['Nauczyciel']}<br>{$lesson['Profesja']}<br>";
+
+                    // Przycisk "Usuń"
+                    ?>
+                    <form action="akcje.php" method="POST">
+                        <input type="hidden" name="action" value="usun">
+                        <input type="hidden" name="planlekcji_id" value="<?php echo $lesson['Lekcja_id']; ?>">
+                        <button type="submit">Usuń</button>
+                    </form>
+                    <?php
                 } else {
-                    echo "<td class='dzien'></td>";
+                    // Formularze edytowania danych, gdy komórka jest pusta
+                    ?>
+                    <form action="akcje.php" method="POST">
+                        <input type="hidden" name="action" value="edytuj">
+                        <input type="hidden" name="dzien" value="<?php echo $day; ?>">
+                        <input type="hidden" name="numer_lekcji" value="<?php echo $i; ?>">
+                        
+                        <div>
+                            <label for="sala">Sala:</label>
+                            <select name="sala_id">
+                                <?php while ($sala = mysqli_fetch_assoc($sale)) {
+                                    echo "<option value='{$sala['Sala_id']}'>{$sala['Numer_Sali']}</option>";
+                                } ?>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="profesja">Przedmiot:</label>
+                            <select name="profesja">
+                                <?php while ($profesja = mysqli_fetch_assoc($profesje)) {
+                                    echo "<option value='{$profesja['Profesja']}'>{$profesja['Profesja']}</option>";
+                                } ?>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="nauczyciel">Nauczyciel:</label>
+                            <select name="nauczyciel_id">
+                                <?php while ($nauczyciel = mysqli_fetch_assoc($nauczyciele)) {
+                                    echo "<option value='{$nauczyciel['Nauczyciel_id']}'>{$nauczyciel['Nazwa']}</option>";
+                                } ?>
+                            </select>
+                        </div>
+
+                        <button type="submit">Zapisz</button>
+                    </form>
+                    <?php
                 }
+
+                echo "</td>";
             }
 
             echo "</tr>";
