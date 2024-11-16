@@ -82,10 +82,14 @@
     <!-- Kontener na przyciski -->
         <div class="button-container">
             <!-- Pierwszy przycisk -->
-            <a href="przedlogin.php" class="button">Panel Admina</a>
+            <a href="Klasy.php" class="button">Klasy</a>
             <!-- Drugi przycisk -->
-            <a href="BazaDanych.php" class="button">Wyświetlanie planu lekcji</a>
-            <a href="crud.php" class="button">CRUD</a>
+            <a href="Sale.php" class="button">Sale</a>
+            <a href="Nauczyciele.php" class="button">Nauczyciele</a>
         </div>
+        <br>
+        <div class="button-container">
+        <a href="index.html" class="button">powrut</a>
+    </div>
     </body>
 </html>
