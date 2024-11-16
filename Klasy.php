@@ -27,7 +27,7 @@ if ($action == 'list') {
     </head>
     <body>
         <h1>Lista klas</h1>
-        <a href="?action=create">Dodaj nową klasę</a>
+        <a href="?action=create">Dodaj nową klasę</a><br><a href="crud.php">Powrót do wyboru tabel</a>
         <table border="1">
             <tr>
                 <th>ID</th>
