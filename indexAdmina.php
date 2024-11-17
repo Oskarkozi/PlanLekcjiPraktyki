@@ -1,9 +1,19 @@
+<?php
+session_start();
+
+// Sprawdzenie, czy użytkownik jest zalogowany
+if (!isset($_SESSION['user_name'])) {
+    header("Location: index.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eruptor</title>
+    <title>Eruptor-Admin</title>
     
     <style>
         /* Stylizacja strony */
@@ -82,14 +92,9 @@
     <!-- Kontener na przyciski -->
         <div class="button-container">
             <!-- Pierwszy przycisk -->
-            <a href="Klasy.php" class="button">Klasy</a>
+            <a href="wyburKlasEdytor.php" class="button">Edytor Planu Lekcji</a>
             <!-- Drugi przycisk -->
-            <a href="Sale.php" class="button">Sale</a>
-            <a href="Nauczyciele.php" class="button">Nauczyciele</a>
+            <a href="crud.php" class="button">CRUD</a>
         </div>
-        <br>
-        <div class="button-container">
-        <a href="indexAdmina.php" class="button">powrut</a>
-    </div>
     </body>
 </html>

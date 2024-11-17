@@ -59,6 +59,33 @@ if (!isset($_SESSION['user_name'])) {
         a:hover {
             color: #ff4500; /* Pomarańczowy kolor po najechaniu myszką */
         }
+        .button {
+            flex: 1;
+            padding: 20px;
+            margin: 0 10px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #70562f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        /* Efekt po najechaniu myszką */
+        .button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Stylizacja focus */
+        .button:focus {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+        
     </style>
 </head>
 <body>
@@ -97,5 +124,9 @@ if (!isset($_SESSION['user_name'])) {
         mysqli_close($conn);
     }
     ?>
+    <br>
+        <div class="button-container">
+        <a href="indexAdmina.php" class="button">powrót</a>
+    </div>
 </body>
 </html>
