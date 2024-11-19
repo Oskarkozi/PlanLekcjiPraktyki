@@ -116,7 +116,7 @@ if (!isset($_SESSION['user_name'])) {
             <!-- Pierwszy przycisk -->
             <a href="wyburKlasEdytor.php" class="button">Edytor Planu Lekcji</a>
             <!-- Drugi przycisk -->
-            <a href="crud.php" class="button">CRUD</a>
+            <a href="crud/crud.php" class="button">CRUD</a>
         </div>
         <footer>
         <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>

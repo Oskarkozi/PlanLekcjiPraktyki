@@ -100,7 +100,7 @@
 </head>
     <body>
     <!-- Logo umieszczone na środku -->
-    <img src="logo.png" alt="Logo" class="logo">
+    <img src="../logo.png" alt="Logo" class="logo">
     <!-- Kontener na przyciski -->
         <div class="button-container">
             <!-- Pierwszy przycisk -->
@@ -111,7 +111,7 @@
         </div>
         <br>
         <div class="button-container">
-        <a href="indexAdmina.php" class="button">powrót</a>
+        <a href="../indexAdmina.php" class="button">powrót</a>
     </div>
     <footer>
     <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>

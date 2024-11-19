@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wyświetlacz planu lekcji</title>
-    <link rel="stylesheet" href="crud.css">
+    <link rel="stylesheet" href="edytor.css">
 </head>
 <body>
     <?php
