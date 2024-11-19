@@ -61,9 +61,8 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Lekcji</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
 </head>
-<body>
+<body class="page-plan">
     <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?></h1>
 
     <table>
@@ -102,9 +101,9 @@ mysqli_close($conn);
 
             echo "</tr>";
         }
-
         ?>
     </table>
+
     <div class="button-container">
         <a href="BazaDanych.php" class="button">Powrót</a>
     </div>
