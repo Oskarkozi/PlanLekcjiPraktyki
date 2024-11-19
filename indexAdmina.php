@@ -114,7 +114,7 @@ if (!isset($_SESSION['user_name'])) {
     <!-- Kontener na przyciski -->
         <div class="button-container">
             <!-- Pierwszy przycisk -->
-            <a href="wyburKlasEdytor.php" class="button">Edytor Planu Lekcji</a>
+            <a href="edytor/wyburKlasEdytor.php" class="button">Edytor Planu Lekcji</a>
             <!-- Drugi przycisk -->
             <a href="crud/crud.php" class="button">CRUD</a>
         </div>

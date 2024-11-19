@@ -116,7 +116,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <title>Plan Lekcji</title>
-    <link rel="stylesheet" href="crud.css">
+    <link rel="stylesheet" href="edytor.css">
 </head>
 <body>
     <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> - Edytor</h1>
@@ -193,4 +193,4 @@ mysqli_close($conn);
         </table>
         <button type="submit">Zapisz zmiany</button>
     </form>
-        </body>
+</body

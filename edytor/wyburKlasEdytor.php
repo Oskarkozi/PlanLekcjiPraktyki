@@ -44,7 +44,7 @@
 
     <!-- Kontener z przyciskiem powrotu -->
     <div class="button-container">
-        <a href="indexAdmina.php" class="button">Powrót</a>
+        <a href="../indexAdmina.php" class="button">Powrót</a>
     </div>
 </body>
 </html>
