@@ -6,3 +6,4 @@ Instrukcja:
 4. Przejdź do przeglądarki i wpisz:
 http://localhost/PlanLekcjiPraktyki-main/
 5. Aby mieć dostęp do panelu Admina trzeba zalogować się za pomocą loginu oraz hasła, w obu przypadkach jest to admin
+6. W panelu admina można włączyć panel "CRUD" aby np dodawać nauczycieli czy klasy.
