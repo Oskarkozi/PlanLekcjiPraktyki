@@ -116,12 +116,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <title>Plan Lekcji</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; text-align: center; border: 1px solid #ddd; }
-        th { background-color: #f4b400; color: #fff; }
-    </style>
+    <link rel="stylesheet" href="crud.css">
 </head>
 <body>
     <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?> - Edytor</h1>
@@ -198,4 +193,4 @@ mysqli_close($conn);
         </table>
         <button type="submit">Zapisz zmiany</button>
     </form>
-</body
+        </body>
