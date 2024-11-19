@@ -49,6 +49,63 @@
         a:hover {
             color: #ff4500; /* Pomarańczowy kolor po najechaniu myszką */
         }
+        /*stopka*/
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #2F4F4F;
+            color: white;
+            text-align: center;
+            padding: 4px 0;
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        footer a {
+            color: #45a049;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+        /* Styl przycisku */
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #800000;
+            border: solid;
+            border-style: solid;
+            border-width: 5px;
+            border-radius: 8px;
+            border-color: #ffcc00;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            color: yellow;
+            transform: scale(1.1);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:focus {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
     </style>
 </head>
 <body>
@@ -87,5 +144,11 @@
         mysqli_close($conn);
     }
     ?>
+    <div class="button-container">
+        <a href="index.html" class="button">Powrót</a>
+    </div>
+    <footer>
+    <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>
+    </footer>
 </body>
 </html>

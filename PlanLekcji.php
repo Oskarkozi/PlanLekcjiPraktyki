@@ -62,6 +62,43 @@ mysqli_close($conn);
     <title>Plan Lekcji</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
+    <style>
+        /* Styl przycisku */
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #800000;
+            border: solid;
+            border-style: solid;
+            border-width: 5px;
+            border-radius: 8px;
+            border-color: #ffcc00;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            color: yellow;
+            transform: scale(1.1);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:focus {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+    </style>
 </head>
 <body>
     <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?></h1>
@@ -102,7 +139,11 @@ mysqli_close($conn);
 
             echo "</tr>";
         }
+
         ?>
     </table>
+    <div class="button-container">
+        <a href="BazaDanych.php" class="button">Powrót</a>
+    </div>
 </body>
 </html>
