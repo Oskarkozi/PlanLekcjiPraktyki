@@ -84,6 +84,28 @@ if (!isset($_SESSION['user_name'])) {
                 font-size: 1.1em;
             }
         }
+        /*stopka*/
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #2F4F4F;
+            color: white;
+            text-align: center;
+            padding: 4px 0;
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        footer a {
+            color: #45a049;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
     <body>
@@ -96,5 +118,8 @@ if (!isset($_SESSION['user_name'])) {
             <!-- Drugi przycisk -->
             <a href="crud.php" class="button">CRUD</a>
         </div>
+        <footer>
+        <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>
+    </footer>
     </body>
 </html>

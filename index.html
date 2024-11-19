@@ -74,17 +74,43 @@
                 font-size: 1.1em;
             }
         }
+
+        /* stopka */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #2F4F4F;
+            color: white;
+            text-align: center;
+            padding: 4px 0;
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        footer a {
+            color: #45a049;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
-    <body>
+<body>
     <!-- Logo umieszczone na środku -->
     <img src="logo.png" alt="Logo" class="logo">
     <!-- Kontener na przyciski -->
-        <div class="button-container">
-            <!-- Pierwszy przycisk -->
-            <a href="przedlogin.php" class="button">Panel Admina</a>
-            <!-- Drugi przycisk -->
-            <a href="BazaDanych.php" class="button">Wyświetlanie planu lekcji</a>
-        </div>
-    </body>
+    <div class="button-container">
+        <!-- Pierwszy przycisk -->
+        <a href="przedlogin.php" class="button">Panel Admina</a>
+        <!-- Drugi przycisk -->
+        <a href="BazaDanych.php" class="button">Wyświetlanie planu lekcji</a>
+    </div>
+    <footer>
+        <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>
+    </footer>
+</body>
 </html>
