@@ -13,6 +13,7 @@ th {
     background-color: #B22222;
     font-weight: bold;
     color: white;
+    
 }
 
 td.godz,
@@ -149,7 +150,7 @@ td {
     font-weight: bold;
     border: 1px solid #800000;
     /* Ciemnoczerwone obramowanie komórek */
-    border-radius: 30px;
+    
 }
 
 a {
