@@ -118,6 +118,10 @@ if (!isset($_SESSION['user_name'])) {
             <!-- Drugi przycisk -->
             <a href="crud/crud.php" class="button">CRUD</a>
         </div>
+        <br>
+        <div class="button-container">
+        <a href="index.html" class="button">Powrót</a>
+    </div>
         <footer>
         <p>© 2024 Eruptor. | <a href="https://github.com/Oskarkozi/PlanLekcjiPraktyki">Open Source.</a></p>
     </footer>
