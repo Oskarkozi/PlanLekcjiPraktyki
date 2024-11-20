@@ -61,6 +61,7 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Lekcji</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 <body class="page-plan">
     <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?></h1>

@@ -7,7 +7,9 @@ function createFire() {
     fireEmoji.style.left = Math.random() * 100 + 'vw';  // Losowa pozycja na osi X
     fireEmoji.style.fontSize = Math.random() * 24 + 24 + 'px';  // Losowa wielkość emotki
     fireEmoji.style.animationDuration = Math.random() * 3 + 2 + 's';  // Losowy czas trwania animacji
+    fireEmoji.style.position = 'absolute';  // Ustawienie pozycji absolutnej dla animacji
 
+    // Dodanie animowanej emotki do tła
     document.body.appendChild(fireEmoji);
 
     // Usuwanie emotki po zakończeniu animacji (10 sekund)
