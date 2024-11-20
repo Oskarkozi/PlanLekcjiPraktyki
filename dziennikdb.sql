@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 14, 2024 at 11:26 PM
+-- Generation Time: Lis 20, 2024 at 10:22 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -56,7 +56,8 @@ INSERT INTO `klasy` (`Klasa_id`, `Klasa`) VALUES
 (17, '5a'),
 (18, '5b'),
 (19, '5c'),
-(20, '5d');
+(20, '5d'),
+(21, '6n');
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,9 @@ CREATE TABLE `plan_lekcji` (
 --
 
 INSERT INTO `plan_lekcji` (`Lekcja_id`, `Numer_Lekcji`, `Dzien`, `Klasa_id`, `Sala_id`, `Nauczyciel_id`) VALUES
-(1, 1, 1, 1, 1, 1);
+(1, 1, 1, 1, 1, 1),
+(3, 1, 1, 2, 12, 18),
+(4, 2, 1, 1, 8, 6);
 
 -- --------------------------------------------------------
 
@@ -166,6 +169,24 @@ INSERT INTO `sale` (`Sala_id`, `Numer_Sali`, `Komputerowa`) VALUES
 (18, 207, 1),
 (19, 208, 1),
 (20, 209, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `szczensliwy_numer`
+--
+
+CREATE TABLE `szczensliwy_numer` (
+  `date` date NOT NULL,
+  `lucky_number` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `szczensliwy_numer`
+--
+
+INSERT INTO `szczensliwy_numer` (`date`, `lucky_number`) VALUES
+('2024-11-20', 10);
 
 -- --------------------------------------------------------
 
@@ -682,6 +703,12 @@ ALTER TABLE `sale`
   ADD PRIMARY KEY (`Sala_id`);
 
 --
+-- Indeksy dla tabeli `szczensliwy_numer`
+--
+ALTER TABLE `szczensliwy_numer`
+  ADD PRIMARY KEY (`date`);
+
+--
 -- Indeksy dla tabeli `uczen`
 --
 ALTER TABLE `uczen`
@@ -702,7 +729,7 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT for table `klasy`
 --
 ALTER TABLE `klasy`
-  MODIFY `Klasa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Klasa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `nauczyciele`
@@ -714,7 +741,7 @@ ALTER TABLE `nauczyciele`
 -- AUTO_INCREMENT for table `plan_lekcji`
 --
 ALTER TABLE `plan_lekcji`
-  MODIFY `Lekcja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Lekcja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sale`
