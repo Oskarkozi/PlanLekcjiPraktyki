@@ -108,6 +108,7 @@
             <!-- Drugi przycisk -->
             <a href="Sale.php" class="button">Sale</a>
             <a href="Nauczyciele.php" class="button">Nauczyciele</a>
+            <a href="email.php" class="button">Emaile</a>
         </div>
         <br>
         <div class="button-container">

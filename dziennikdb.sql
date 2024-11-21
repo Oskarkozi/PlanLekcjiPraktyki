@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 20, 2024 at 10:22 PM
+-- Generation Time: Lis 21, 2024 at 12:33 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -57,7 +57,7 @@ INSERT INTO `klasy` (`Klasa_id`, `Klasa`) VALUES
 (18, '5b'),
 (19, '5c'),
 (20, '5d'),
-(21, '6n');
+(21, '9X');
 
 -- --------------------------------------------------------
 
@@ -69,44 +69,45 @@ CREATE TABLE `nauczyciele` (
   `Nauczyciel_id` int(11) NOT NULL,
   `Imie` char(50) NOT NULL,
   `Nazwisko` char(50) NOT NULL,
-  `Profesja` char(20) DEFAULT NULL
+  `Profesja` char(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `nauczyciele`
 --
 
-INSERT INTO `nauczyciele` (`Nauczyciel_id`, `Imie`, `Nazwisko`, `Profesja`) VALUES
-(1, 'Jan', 'Kowalski', 'Matematyka'),
-(2, 'Anna', 'Nowak', 'Fizyka'),
-(3, 'Piotr', 'Wiśniewski', 'Chemia'),
-(4, 'Katarzyna', 'Wójcik', 'Biologia'),
-(5, 'Tomasz', 'Kozłowski', 'Historia'),
-(6, 'Michał', 'Jankowski', 'Geografia'),
-(7, 'Agnieszka', 'Mazur', 'Polski'),
-(8, 'Marcin', 'Krawczyk', 'Wychowanie Fizyczne'),
-(9, 'Monika', 'Kaczmarek', 'Informatyka'),
-(10, 'Paweł', 'Pawlak', 'Angielski'),
-(11, 'Ewa', 'Zalewska', 'Francuski'),
-(12, 'Łukasz', 'Sobczak', 'Hiszpański'),
-(13, 'Magdalena', 'Zając', 'Plastyka'),
-(14, 'Adam', 'Król', 'Muzyka'),
-(15, 'Dorota', 'Majewska', 'Fizyka'),
-(16, 'Karol', 'Olszewski', 'Matematyka'),
-(17, 'Barbara', 'Czarnecka', 'Polski'),
-(18, 'Rafał', 'Sikora', 'Chemia'),
-(19, 'Alicja', 'Domańska', 'Biologia'),
-(20, 'Grzegorz', 'Piotrowski', 'Historia'),
-(21, 'Joanna', 'Szymańska', 'Geografia'),
-(22, 'Beata', 'Głowacka', 'Informatyka'),
-(23, 'Mateusz', 'Woźniak', 'Matematyka'),
-(24, 'Patrycja', 'Dudek', 'Polski'),
-(25, 'Wojciech', 'Piekarski', 'Historia'),
-(26, 'Natalia', 'Orłowska', 'Biologia'),
-(27, 'Sebastian', 'Marciniak', 'Fizyka'),
-(28, 'Sylwia', 'Bąk', 'Angielski'),
-(29, 'Zbigniew', 'Ciesielski', 'Matematyka'),
-(30, 'Iwona', 'Bednarek', 'Geografia');
+INSERT INTO `nauczyciele` (`Nauczyciel_id`, `Imie`, `Nazwisko`, `Profesja`, `email`) VALUES
+(1, 'Jan', 'Kowalski', 'Matematyka', 'j.kowalski@eruptor.pl'),
+(2, 'Anna', 'Nowak', 'Fizyka', 'a.nowak@eruptor.pl'),
+(3, 'Piotr', 'Wiśniewski', 'Chemia', 'p.wiśniewski@eruptor.pl'),
+(4, 'Katarzyna', 'Wójcik', 'Biologia', 'k.wójcik@eruptor.pl'),
+(5, 'Tomasz', 'Kozłowski', 'Historia', 't.kozłowski@eruptor.pl'),
+(6, 'Michał', 'Jankowski', 'Geografia', 'm.jankowski@eruptor.pl'),
+(7, 'Agnieszka', 'Mazur', 'Polski', 'a.mazur@eruptor.pl'),
+(8, 'Marcin', 'Krawczyk', 'Wychowanie Fizyczne', 'm.krawczyk@eruptor.pl'),
+(9, 'Monika', 'Kaczmarek', 'Informatyka', 'm.kaczmarek@eruptor.pl'),
+(10, 'Paweł', 'Pawlak', 'Angielski', 'p.pawlak@eruptor.pl'),
+(11, 'Ewa', 'Zalewska', 'Francuski', 'e.zalewska@eruptor.pl'),
+(12, 'Łukasz', 'Sobczak', 'Hiszpański', 'ł.sobczak@eruptor.pl'),
+(13, 'Magdalena', 'Zając', 'Plastyka', 'm.zając@eruptor.pl'),
+(14, 'Adam', 'Król', 'Muzyka', 'a.król@eruptor.pl'),
+(15, 'Dorota', 'Majewska', 'Fizyka', 'd.majewska@eruptor.pl'),
+(16, 'Karol', 'Olszewski', 'Matematyka', 'k.olszewski@eruptor.pl'),
+(17, 'Barbara', 'Czarnecka', 'Polski', 'b.czarnecka@eruptor.pl'),
+(18, 'Rafał', 'Sikora', 'Chemia', 'r.sikora@eruptor.pl'),
+(19, 'Alicja', 'Domańska', 'Biologia', 'a.domańska@eruptor.pl'),
+(20, 'Grzegorz', 'Piotrowski', 'Historia', 'g.piotrowski@eruptor.pl'),
+(21, 'Joanna', 'Szymańska', 'Geografia', 'j.szymańska@eruptor.pl'),
+(22, 'Beata', 'Głowacka', 'Informatyka', 'b.głowacka@eruptor.pl'),
+(23, 'Mateusz', 'Woźniak', 'Matematyka', 'm.woźniak@eruptor.pl'),
+(24, 'Patrycja', 'Dudek', 'Polski', 'p.dudek@eruptor.pl'),
+(25, 'Wojciech', 'Piekarski', 'Historia', 'w.piekarski@eruptor.pl'),
+(26, 'Natalia', 'Orłowska', 'Biologia', 'n.orłowska@eruptor.pl'),
+(27, 'Sebastian', 'Marciniak', 'Fizyka', 's.marciniak@eruptor.pl'),
+(28, 'Sylwia', 'Bąk', 'Angielski', 's.bąk@eruptor.pl'),
+(29, 'Zbigniew', 'Ciesielski', 'Matematyka', 'z.ciesielski@eruptor.pl'),
+(30, 'Iwona', 'Bednarek', 'Geografia', 'i.bednarek@eruptor.pl');
 
 -- --------------------------------------------------------
 
@@ -128,9 +129,14 @@ CREATE TABLE `plan_lekcji` (
 --
 
 INSERT INTO `plan_lekcji` (`Lekcja_id`, `Numer_Lekcji`, `Dzien`, `Klasa_id`, `Sala_id`, `Nauczyciel_id`) VALUES
-(1, 1, 1, 1, 1, 1),
-(3, 1, 1, 2, 12, 18),
-(4, 2, 1, 1, 8, 6);
+(1, 1, 1, 1, 2, 2),
+(55, 1, 2, 1, 4, 5),
+(56, 4, 4, 1, 17, 18),
+(57, 4, 2, 14, 2, 1),
+(58, 3, 3, 14, 1, 1),
+(59, 4, 3, 14, 19, 18),
+(60, 2, 2, 14, 3, 3),
+(61, 2, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +192,8 @@ CREATE TABLE `szczensliwy_numer` (
 --
 
 INSERT INTO `szczensliwy_numer` (`date`, `lucky_number`) VALUES
-('2024-11-20', 10);
+('2024-11-20', 19),
+('2024-11-21', 2);
 
 -- --------------------------------------------------------
 
@@ -741,7 +748,7 @@ ALTER TABLE `nauczyciele`
 -- AUTO_INCREMENT for table `plan_lekcji`
 --
 ALTER TABLE `plan_lekcji`
-  MODIFY `Lekcja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Lekcja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `sale`
