@@ -39,7 +39,11 @@ if ($lucky_number === null) {
 $sql_classes = "SELECT Klasa FROM klasy ORDER BY 
                 CAST(SUBSTRING(Klasa, 1, LENGTH(Klasa) - 1) AS UNSIGNED) ASC, 
                 SUBSTRING(Klasa, LENGTH(Klasa)) ASC";
-$result = mysqli_query($conn, $sql_classes);
+$result_classes = mysqli_query($conn, $sql_classes);
+
+// Pobieranie nauczycieli z bazy danych
+$sql_teachers = "SELECT Nauczyciel_id, Imie, Nazwisko FROM nauczyciele ORDER BY Nazwisko ASC";
+$result_teachers = mysqli_query($conn, $sql_teachers);
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +51,7 @@ $result = mysqli_query($conn, $sql_classes);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wybór klasy</title>
+    <title>Wybór klasy i nauczyciela</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .lucky-number-container {
@@ -65,13 +69,14 @@ $result = mysqli_query($conn, $sql_classes);
     </style>
 </head>
 <body>
-    <?php if ($result && mysqli_num_rows($result) > 0): ?>
+    <!-- Sekcja tabeli z klasami -->
+    <?php if ($result_classes && mysqli_num_rows($result_classes) > 0): ?>
         <table>
             <tr>
-                <th colspan="<?php echo mysqli_num_rows($result); ?>">Klasa</th>
+                <th colspan="<?php echo mysqli_num_rows($result_classes); ?>">Klasa</th>
             </tr>
             <tr>
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <?php while ($row = mysqli_fetch_assoc($result_classes)): ?>
                     <td><a href="PlanLekcji.php?klasa=<?php echo urlencode($row['Klasa']); ?>"><?php echo $row['Klasa']; ?></a></td>
                 <?php endwhile; ?>
             </tr>
@@ -80,10 +85,32 @@ $result = mysqli_query($conn, $sql_classes);
         <p>Brak wyników.</p>
     <?php endif; ?>
 
+    <!-- Sekcja tabeli z nauczycielami -->
+    <?php if ($result_teachers && mysqli_num_rows($result_teachers) > 0): ?>
+        <table>
+            <tr>
+                <th colspan="<?php echo mysqli_num_rows($result_teachers); ?>">Nauczyciel</th>
+            </tr>
+            <tr>
+                <?php while ($teacher = mysqli_fetch_assoc($result_teachers)): ?>
+                    <td>
+                        <a href="ProfilNauczyciela.php?id=<?php echo urlencode($teacher['Nauczyciel_id']); ?>">
+                            <?php echo $teacher['Imie'] . ' ' . $teacher['Nazwisko']; ?>
+                        </a>
+                    </td>
+                <?php endwhile; ?>
+            </tr>
+        </table>
+    <?php else: ?>
+        <p>Brak nauczycieli w bazie.</p>
+    <?php endif; ?>
+
+    <!-- Sekcja szczęśliwego numerka -->
     <div class="lucky-number-container">
         Szczęśliwy numerek na dziś (<?php echo $today; ?>): <span><?php echo $lucky_number; ?></span>
     </div>
 
+    <!-- Sekcja przycisku powrotu -->
     <div class="button-container">
         <a href="index.html" class="button">Powrót</a>
     </div>
@@ -91,6 +118,6 @@ $result = mysqli_query($conn, $sql_classes);
 </html>
 
 <?php
-// Close the connection
+// Zamknięcie połączenia
 mysqli_close($conn);
 ?>
