@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 21, 2024 at 12:33 PM
+-- Generation Time: Lis 26, 2024 at 07:09 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -71,7 +71,7 @@ CREATE TABLE `nauczyciele` (
   `Nazwisko` char(50) NOT NULL,
   `Profesja` char(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `nauczyciele`
@@ -193,7 +193,8 @@ CREATE TABLE `szczensliwy_numer` (
 
 INSERT INTO `szczensliwy_numer` (`date`, `lucky_number`) VALUES
 ('2024-11-20', 19),
-('2024-11-21', 2);
+('2024-11-21', 2),
+('2024-11-26', 7);
 
 -- --------------------------------------------------------
 

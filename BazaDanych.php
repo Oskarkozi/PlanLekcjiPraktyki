@@ -5,7 +5,7 @@ $db_user = "root";
 $db_pass = "";
 $db_name = "dziennikdb";
 $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
-
+mysqli_set_charset($conn, "utf8mb4");
 if (!$conn) {
     echo "Brak połączenia";
     exit();
@@ -95,7 +95,7 @@ $result_teachers = mysqli_query($conn, $sql_teachers);
                 <?php while ($teacher = mysqli_fetch_assoc($result_teachers)): ?>
                     <td>
                         <a href="ProfilNauczyciela.php?id=<?php echo urlencode($teacher['Nauczyciel_id']); ?>">
-                            <?php echo $teacher['Imie'] . ' ' . $teacher['Nazwisko']; ?>
+                            <?php $inicjaly = strtoupper(mb_substr($teacher['Imie'], 0, 1, "UTF-8")) . '.' . ucfirst(mb_strtolower(mb_substr($teacher['Nazwisko'], 0, 3, "UTF-8"), "UTF-8"));echo $inicjaly; ?>
                         </a>
                     </td>
                 <?php endwhile; ?>

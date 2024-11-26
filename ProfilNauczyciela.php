@@ -10,15 +10,16 @@ if (!$conn) {
     die("Brak połączenia: " . mysqli_connect_error());
 }
 
-// Get class from URL (e.g., "3a")
-$klasa = isset($_GET['klasa']) ? $_GET['klasa'] : '';
+// Get teacher ID from URL (e.g., "nauczyciel_id=1")
+$nauczyciel_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// Fetch schedule for the given class for all days of the week
+
+// Fetch schedule for the given teacher for all days of the week
 $sql = "SELECT
             pl.Numer_Lekcji,
             pl.Dzien,
             s.Numer_Sali,
-            CONCAT(SUBSTRING(n.Imie, 1, 1), '. ', n.Nazwisko) AS Nauczyciel,
+            k.Klasa,
             n.Profesja
         FROM
             plan_lekcji pl
@@ -29,7 +30,7 @@ $sql = "SELECT
         JOIN
             nauczyciele n ON pl.Nauczyciel_id = n.Nauczyciel_id
         WHERE
-            k.Klasa = '$klasa'
+            pl.Nauczyciel_id = '$nauczyciel_id'
             AND pl.Dzien IN (1, 2, 3, 4, 5)
         ORDER BY
             pl.Dzien, pl.Numer_Lekcji";
@@ -51,7 +52,10 @@ if ($result && mysqli_num_rows($result) > 0) {
         $schedule[$row['Dzien']][$row['Numer_Lekcji']] = $row;
     }
 }
+
+
 mysqli_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -59,12 +63,11 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan Lekcji</title>
+    <title>Plan Lekcji dla Nauczyciela</title>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body class="page-plan">
-    <h1>Plan Lekcji dla klasy <?php echo htmlspecialchars($klasa); ?></h1>
+    <h1>Plan Lekcji dla nauczyciela</h1>
 
     <table>
         <tr>
@@ -78,8 +81,8 @@ mysqli_close($conn);
         </tr>
 
         <?php
-        // Define lesson times
         
+        // Define lesson times
         $times = [
             "08:00 - 08:45", "09:00 - 09:45", "10:00 - 10:45",
             "11:00 - 11:45", "12:00 - 12:45", "13:00 - 13:45",
@@ -95,7 +98,7 @@ mysqli_close($conn);
             for ($day = 1; $day <= 5; $day++) {
                 if (isset($schedule[$day][$i])) {
                     $lesson = $schedule[$day][$i];
-                    echo "<td class='dzien'>{$lesson['Numer_Sali']}<br>{$lesson['Nauczyciel']}<br>{$lesson['Profesja']}</td>";
+                    echo "<td class='dzien'>{$lesson['Klasa']}<br>{$lesson['Numer_Sali']}<br>{$lesson['Profesja']}</td>";
                 } else {
                     echo "<td class='dzien'></td>";
                 }

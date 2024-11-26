@@ -67,7 +67,8 @@ td {
 }
 
 /* Specjalne kolumny */
-td.godz, td.nr {
+td.godz,
+td.nr {
     width: 80px;
 }
 
@@ -117,9 +118,11 @@ td.dzien {
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(5px);
     }
+
     100% {
         transform: translateY(0);
     }
