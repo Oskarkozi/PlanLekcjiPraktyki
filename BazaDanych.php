@@ -66,44 +66,146 @@ $result_teachers = mysqli_query($conn, $sql_teachers);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             width: 50%;
         }
+
+        /* Stylizacja dla formularza wyboru nauczyciela */
+.form-container {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffcc00; /* Żółte tło pasujące do kolorystyki */
+    border: 1px solid #800000; /* Bordowa ramka */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Delikatny cień */
+    width: 50%;
+}
+
+/* Stylizacja dla tekstu i etykiety */
+.form-container label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #800000; /* Bordowy kolor tekstu */
+    margin-right: 10px;
+}
+
+/* Stylizacja dla listy rozwijanej */
+.form-container select {
+    font-size: 1em;
+    padding: 10px;
+    border: 2px solid #800000; /* Bordowa ramka */
+    border-radius: 5px;
+    background-color: #ffffff; /* Białe tło */
+    color: #800000; /* Bordowy tekst */
+    font-weight: bold;
+    width: 60%;
+    margin-bottom: 10px;
+}
+
+/* Efekt po najechaniu na listę */
+.form-container select:hover {
+    background-color: #ffe680; /* Jaśniejszy żółty */
+    cursor: pointer;
+}
+
+/* Stylizacja dla przycisku */
+.form-container button {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    background-color: #800000; 
+    color: #ffcc00; 
+    border: 2px solid #800000; 
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efekt po najechaniu na przycisk */
+.form-container button:hover {
+    background-color: #ffe680; /* Jaśniejszy żółty na hover */
+    color: #a00000; /* Ciemniejszy bordowy tekst */
+    cursor: pointer;
+}
+
+/* Stylizacja dla kontenera przycisku powrotu */
+.button-container a.button {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #800000; /* Bordowe tło */
+    color: #ffffff; /* Biały tekst */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Delikatny cień */
+    transition: background-color 0.3s ease;
+}
+
+/* Efekt po najechaniu na przycisk powrotu */
+.button-container a.button:hover {
+    background-color: #a00000; /* Jaśniejszy bordowy */
+}
+
     </style>
 </head>
 <body>
-    <!-- Sekcja tabeli z klasami -->
-    <?php if ($result_classes && mysqli_num_rows($result_classes) > 0): ?>
-        <table>
-            <tr>
-                <th colspan="<?php echo mysqli_num_rows($result_classes); ?>">Klasa</th>
-            </tr>
-            <tr>
-                <?php while ($row = mysqli_fetch_assoc($result_classes)): ?>
-                    <td><a href="PlanLekcji.php?klasa=<?php echo urlencode($row['Klasa']); ?>"><?php echo $row['Klasa']; ?></a></td>
-                <?php endwhile; ?>
-            </tr>
-        </table>
-    <?php else: ?>
-        <p>Brak wyników.</p>
-    <?php endif; ?>
 
-    <!-- Sekcja tabeli z nauczycielami -->
+<?php 
+//Sekcja tabeli z klasami
+if ($result_classes && mysqli_num_rows($result_classes) > 0): ?>
+    <table style="border-collapse: collapse; width: 80%; margin: 20px auto; background-color: #ffcc00;">
+        <tr style="background-color: #800000; color: white;">
+            <th colspan="4" style="padding: 10px;">KLASA</th>
+        </tr>
+        <?php 
+        $counter = 0;
+        $columns_per_row = 4; // Liczba kolumn w jednym wierszu
+        ?>
+        <tr>
+        <?php while ($row = mysqli_fetch_assoc($result_classes)): ?>
+            <td style="border: 1px solid #800000; text-align: center; padding: 10px;">
+                <a href="PlanLekcji.php?klasa=<?php echo urlencode($row['Klasa']); ?>" style="text-decoration: none; color: #800000; font-weight: bold;">
+                    <?php echo $row['Klasa']; ?>
+                </a>
+            </td>
+            <?php 
+            $counter++;
+            if ($counter % $columns_per_row == 0): // Nowy wiersz po n kolumnach
+            ?>
+        </tr><tr>
+            <?php endif; ?>
+        <?php endwhile; ?>
+        <?php 
+        // Jeśli pozostały puste komórki, wypełnij je
+        while ($counter % $columns_per_row != 0): 
+        ?>
+            <td style="border: 1px solid #800000; text-align: center; padding: 10px;"></td>
+            <?php $counter++; ?>
+        <?php endwhile; ?>
+        </tr>
+    </table>
+<?php else: ?>
+    <p>Brak wyników.</p>
+<?php endif; ?>
+
+    <!-- Sekcja listy wyboru nauczyciela -->
     <?php if ($result_teachers && mysqli_num_rows($result_teachers) > 0): ?>
-        <table>
-            <tr>
-                <th colspan="<?php echo mysqli_num_rows($result_teachers); ?>">Nauczyciel</th>
-            </tr>
-            <tr>
+    <div class="form-container">
+        <form action="ProfilNauczyciela.php" method="GET">
+            <label for="nauczyciel">Wybierz nauczyciela:</label>
+            <select name="id" id="nauczyciel"> <!-- Zmieniamy nazwę pola na zgodną z URL -->
                 <?php while ($teacher = mysqli_fetch_assoc($result_teachers)): ?>
-                    <td>
-                        <a href="ProfilNauczyciela.php?id=<?php echo urlencode($teacher['Nauczyciel_id']); ?>">
-                            <?php $inicjaly = strtoupper(mb_substr($teacher['Imie'], 0, 1, "UTF-8")) . '.' . ucfirst(mb_strtolower(mb_substr($teacher['Nazwisko'], 0, 3, "UTF-8"), "UTF-8"));echo $inicjaly; ?>
-                        </a>
-                    </td>
+                    <option value="<?php echo $teacher['Nauczyciel_id']; ?>">
+                        <?php echo $teacher['Imie'] . ' ' . $teacher['Nazwisko']; ?>
+                    </option>
                 <?php endwhile; ?>
-            </tr>
-        </table>
-    <?php else: ?>
-        <p>Brak nauczycieli w bazie.</p>
-    <?php endif; ?>
+            </select>
+            <button type="submit">Pokaż plan</button>
+        </form>
+    </div>
+<?php else: ?>
+    <p>Brak nauczycieli w bazie.</p>
+<?php endif; ?>
+
 
     <!-- Sekcja szczęśliwego numerka -->
     <div class="lucky-number-container">
