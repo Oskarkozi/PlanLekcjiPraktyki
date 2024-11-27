@@ -18,6 +18,9 @@ if ($action == 'list') {
     // LIST - Wyświetlanie wszystkich sal
     $sql = "SELECT * FROM sale";
     $result = $conn->query($sql);
+
+    // Ustawienie daty ostatniej edycji w ciasteczku
+    setcookie('last_edit_date', date('Y-m-d H:i:s'), time() + 3600 * 24 * 30, '/'); // Ciasteczko ważne przez 30 dni
     ?>
     <!DOCTYPE html>
     <html>
