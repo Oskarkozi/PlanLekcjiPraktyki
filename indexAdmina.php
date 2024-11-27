@@ -6,8 +6,9 @@ if (!isset($_SESSION['user_name'])) {
     header("Location: index.html");
     exit();
 }
+// Sprawdzenie, czy istnieje ciasteczko z datą ostatniej edycji
+$last_edit_date = isset($_COOKIE['last_edit_date']) ? $_COOKIE['last_edit_date'] : null;
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -106,9 +107,31 @@ if (!isset($_SESSION['user_name'])) {
         footer a:hover {
             text-decoration: underline;
         }
+        .last-edit{
+            text-align: center;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #ffcc00;
+            border-radius: 10px;
+            color: #800000;
+            font-weight: bold;
+            font-size: 1.5em;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
     <body>
+        <!-- Informacja o dacie ostatniej edycji -->
+    <?php if ($last_edit_date): ?>
+        <div class="last-edit">
+            Ostatnia edycja miała miejsce: <?php echo $last_edit_date; ?>
+        </div>
+    <?php else: ?>
+        <div class="last-edit">
+            Brak informacji o dacie ostatniej edycji.
+        </div>
+    <?php endif; ?>
+
     <!-- Logo umieszczone na środku -->
     <img src="logo.png" alt="Logo" class="logo">
     <!-- Kontener na przyciski -->
@@ -118,7 +141,9 @@ if (!isset($_SESSION['user_name'])) {
             <!-- Drugi przycisk -->
             <a href="crud/crud.php" class="button">CRUD</a>
         </div>
-        <br>
+
+    <br>
+
         <div class="button-container">
         <a href="index.html" class="button">Powrót</a>
     </div>
